@@ -1,15 +1,32 @@
+import { generateWeakPass, generateAvgPass, generateStrongPass } from "./utils.js";
 
 
-document.querySelector(".buttons").addEventListener("click", (event) => {
+document.querySelector(".container").addEventListener("click", (event) => {
   if (event.target.closest(".button")) {
     const passStrength = event.target.classList[0]
-    
+    let password = '';
+
     if(passStrength === 'weak'){
-      console.log("weak pass")
+      password = generateWeakPass();
     } else if (passStrength === 'average'){
-      console.log("average pass")
+      password = generateAvgPass();
     } else {
-      console.log("strong pass")
+      password = generateStrongPass();
     }
+
+    displayGeneratedPass(password);
+  }
+
+  if (event.target.closest('.copy-image')){
+    copyToClipboard();
   }
 });
+
+function displayGeneratedPass(pass){
+  document.querySelector('input').value = pass;
+}
+
+function copyToClipboard(){
+  const inputValue = document.querySelector('input').value;
+  navigator.clipboard.writeText(inputValue);
+}
