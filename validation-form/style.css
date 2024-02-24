@@ -81,3 +81,50 @@ form button{
     display: block;
     margin: 30px auto 10px;
 }
+
+.name-div::after{
+    content: "Invalid name";
+    position: absolute;
+    right: 0px;
+    color: red;
+    display: none;
+}
+.name-div.error::after{
+    display: block;
+}
+
+.number-div::after{
+    content: "Number is required";
+    position: absolute;
+    right: 0px;
+    color: red;
+    display: none;
+}
+.number-div.error::after{
+    display: block;
+}
+
+.email-div::after{
+    content: "Email is required";
+    position: absolute;
+    right: 0px;
+    color: red;
+    display: none;
+}
+.email-div.error::after{
+    display: block;
+}
+
+.message-div{
+    position: relative;
+}
+.chars-remaining{
+    position: absolute;
+    right: 0;
+    color: red;
+    display: none;
+}
+
+.chars-remaining.display{
+    display: block;
+}

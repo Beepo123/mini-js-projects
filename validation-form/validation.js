@@ -1,55 +1,49 @@
-document.querySelector("button").addEventListener("click", (event) => {
+document.querySelector("button").addEventListener("click", handleSubmit);
+
+function handleSubmit(event) {
   event.preventDefault();
 
-  const name = document.querySelector(".name-input").value;
-  const number = document.querySelector(".number-input").value;
-  const email = document.querySelector(".email-input").value;
-  const message = document.querySelector(".message-input").value;
+  const name = getInputValue(".name-input");
+  const number = getInputValue(".number-input");
+  const email = getInputValue(".email-input");
+  const message = getInputValue(".message-input");
 
-  if (name.length !== 0 && validateName(name)) {
-    console.log("valid name");
-  } else {
-    console.log("invalid name");
+  validateInput(name, ".name-div", validateName);
+  validateInput(number, ".number-div", validateNumber);
+  validateInput(email, ".email-div", validateEmail);
+
+  if (message.length !== 30) {
+    displayCharsRemaining();
     return;
   }
 
-  if (number.length === 10 && validateNumber(number)) {
-    console.log("valid number");
+  location.reload();
+}
+
+function getInputValue(selector) {
+  return document.querySelector(selector).value;
+}
+
+function validateInput(value, containerSelector, validator) {
+  const container = document.querySelector(containerSelector);
+  if (!validator(value)) {
+    container.classList.add("error");
   } else {
-    console.log("invalid number");
-    return;
-  }
-
-  if (email.length !== 0 && validateEmail(email)) {
-    console.log("valid email");
-  } else {
-    console.log("invalid email");
-    return;
-  }
-
-  if (message.length === 0) {
-    console.log("enter a message");
-  }
-});
-
-// will find the index of space element -> " "
-// and check if the element before and after that index is an alphabet
-function validateName(name) {
-  for (let i = 0; i < name.length; i++) {
-    if (name[i] === " ") {
-      try {
-        return (
-          name[i - 1].toLowerCase() != name[i - 1].toUpperCase() &&
-          name[i + 1].toLowerCase() != name[i + 1].toUpperCase()
-        );
-      } catch {
-        return false;
-      }
-    }
+    container.classList.remove("error");
   }
 }
 
-function validateNumber(number) {
+function validateName(name) {
+  const spaceIndex = name.indexOf(" ");
+  if (spaceIndex !== -1) {
+    const beforeSpace = name[spaceIndex - 1];
+    const afterSpace = name[spaceIndex + 1];
+    return isAlphabet(beforeSpace) && isAlphabet(afterSpace);
+  }
+  return false;
+}
+
+function validateNumber(number){
   for (let i = 0; i < number.length; i++) {
     if (isNaN(Number(number[i]))) {
       return false;
@@ -58,11 +52,18 @@ function validateNumber(number) {
   return true;
 }
 
-function validateEmail(email) {
-  return email.includes('@gmail.com')
+function isAlphabet(char) {
+  return char && char.toLowerCase() !== char.toUpperCase();
 }
 
-function displayCharsRemaining(){
-  message = document.querySelector('.message-input').value;
-  console.log(`${30 - message.length} characters more`)
+function validateEmail(email) {
+  return email.includes("@gmail.com");
+}
+
+function displayCharsRemaining() {
+  const message = document.querySelector(".message-input").value;
+  const remaining = `${30 - message.length} characters remaining`;
+  const charCount = document.querySelector(".chars-remaining");
+  charCount.innerHTML = remaining;
+  charCount.classList.add("display");
 }
