@@ -17,7 +17,7 @@ document.querySelector(".container").addEventListener("click", (event) => {
   }
 
   if (event.target.closest('.copy-image')){
-    console.log(password)
+    document.querySelector('input').select();
     navigator.clipboard.writeText(password)
   }
 });
