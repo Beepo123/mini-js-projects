@@ -11,28 +11,28 @@ body{
 
 .gallery-wrap{
     display: flex;
+    width: 80%;
     align-items: center;
     justify-content: center;
     margin: 10% auto;
 }
 #backBtn,
 #nextBtn{
-    width: 50px;
+    width: 5%;
     cursor: pointer;
-    margin: 40px;
 }
 
 .gallery{
-    width: 900px;
+    width: 90%;
     display: flex;
     overflow-x: scroll;
 }
 .gallery div{
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 20px;
-    padding: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3%;
+    padding: 3%;
     flex: none;
 }
 .gallery span{
