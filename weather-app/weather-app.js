@@ -1,4 +1,4 @@
-const apiKey = "1541cc2af99034a5ca3ebb18633d5b98";
+const apiKey = "";
 
 // display weather info on button click
 const buttonElement = document.querySelector(".search-button");
@@ -6,13 +6,12 @@ buttonElement.addEventListener("click", async () => {
   const city = readCityInput();
   const API = generateApiUrl(city);
 
-  try{
+  try {
     const weatherData = await getWeatherData(API);
     renderWeather(weatherData);
   } catch (error) {
     console.log("error connecting to API");
   }
-
 });
 
 async function getWeatherData(API) {
@@ -37,7 +36,7 @@ function renderWeather(data) {
   const { name } = data;
   const { humidity } = data.main;
   const { speed } = data.wind;
-  const weather = (data.weather[0].main).toLowerCase();
+  const weather = data.weather[0].main.toLowerCase();
   const temp = (data.main.temp - 273.15).toFixed();
 
   const html = `
